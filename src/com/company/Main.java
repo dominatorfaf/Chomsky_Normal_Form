@@ -1,8 +1,13 @@
 package com.company;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class Main {
 
-    public static void main(String[] args) {
-	// write your code here
+    public static void main(String[] args) throws IOException {
+        Map<Grammar, List<Grammar>> hashMapGrammar = new HashMap<>();
+        FetchGrammar.fetchGrammarFromFile(hashMapGrammar);
     }
 }
