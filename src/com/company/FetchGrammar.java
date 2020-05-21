@@ -77,13 +77,6 @@ public class FetchGrammar {
             CFG.put(nodes.get(i), path.get(i));
         }
 
-        for (Grammar key : CFG.keySet()) {
-            List<Grammar> value = CFG.get(key);
-            System.out.println("Key = " + key.getNodeName());
-            for (Grammar g: value
-            ) {
-                System.out.println(" : Values = " + g.getNodeName());
-            }
-        }
+//        Rules.printGrammar(CFG);
     }
 }

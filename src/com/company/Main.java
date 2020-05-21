@@ -9,5 +9,10 @@ public class Main {
     public static void main(String[] args) throws IOException {
         Map<Grammar, List<Grammar>> hashMapGrammar = new HashMap<>();
         FetchGrammar.fetchGrammarFromFile(hashMapGrammar);
+
+        //1 --------Epsilon-Removal--------
+        Rules.removeEpsilon(hashMapGrammar);
+        Rules.printGrammar(hashMapGrammar);
+
     }
 }
