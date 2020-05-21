@@ -17,7 +17,7 @@ public class FetchGrammar {
     }
 
     private static void fillCFGFromFile (Map<String, List<String>> CFG) throws IOException {
-        String filePath = "C:\\Users\\domin\\IdeaProjects\\ChomskyNF\\src\\com\\company\\test.txt";
+        String filePath = "C:\\Users\\domin\\IdeaProjects\\ChomskyNormalForm\\src\\com\\company\\test.txt";
 
         List<String> nodes = new ArrayList<>();
         List<List<String>> path = new ArrayList<>();
@@ -77,6 +77,5 @@ public class FetchGrammar {
             CFG.put(nodes.get(i), path.get(i));
         }
 
-//        Rules.printGrammar(CFG);
     }
 }

@@ -11,6 +11,8 @@ public class Main {
         FetchGrammar.fetchGrammarFromFile(hashMapGrammar);
 
         //1 --------Epsilon-Removal--------
+
+        Rules.printGrammar(hashMapGrammar);
         Rules.removeEpsilon(hashMapGrammar);
         Rules.printGrammar(hashMapGrammar);
 

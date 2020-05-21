@@ -1,23 +1,27 @@
 package com.company;
 
+import javafx.css.Rule;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 public class Rules {
     static boolean hasEpsilon = false;
+    static String epsilonProduction = "";
 
     //1. removing epsilon
     public static void removeEpsilon(Map<Grammar, List<Grammar>> CFG) {
-        String epsilonProduction = "";
+        epsilonProduction = "";
         hasEpsilon = false;
+        System.out.println(epsilonProduction);
+
         for (Grammar key: CFG.keySet()) {
             for (List<Grammar> values : CFG.values()) {
-                for (Grammar value: values
-                ) {
-                    if(value.getNodeName().equals("ε")){
+                for(int i = 0; i < values.size(); i++) {
+                    if(values.get(i).getNodeName().equals("ε")){
                         hasEpsilon = true;
-                        value.setNodeName("");
+                        values.remove(values.get(i));
                         epsilonProduction = key.getNodeName();
                         break;
                     }
@@ -45,20 +49,24 @@ public class Rules {
             }
         }
         while(0 < instanceOfEpsProduction) {
-            Grammar t;
-            for (Grammar key : CFG.keySet()) {
-                for (List<Grammar> values : CFG.values()) {
-                    for (int i = 0; i < values.size(); i++) {
-                        if (values.get(i).getNodeName().contains(epsProduction)) {
-                            t = values.get(i);
-                            t.setNodeName(values.get(i).getNodeName().replace(epsProduction, ""));
-                            values.add(t);
-                        }
+            for (List<Grammar> values : CFG.values()) {
+                for (int i = 0; i < values.size(); i++) {
+                    if (values.get(i).getNodeName().contains(epsProduction)) {
+                        Grammar t = new Grammar();
+                        t.setNodeName(values.get(i).getNodeName());
+                        t.setNodeName(t.getNodeName().replace(epsProduction, ""));
+//                        if(t.getNodeName().equals("")){ // causes STACK OVERFLOW
+//                            t.setNodeName("ε");
+//                        }
+                        values.add(t);
+                        instanceOfEpsProduction--;
                     }
                 }
             }
         }
         removeEpsilon(CFG); // Coming back to the initial function
+
+//        Rules.printGrammar(CFG);
     }
 
     public static void printGrammar(Map<Grammar, List<Grammar>> CFG) {
