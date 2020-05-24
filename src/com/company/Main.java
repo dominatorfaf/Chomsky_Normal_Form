@@ -11,10 +11,18 @@ public class Main {
         FetchGrammar.fetchGrammarFromFile(hashMapGrammar);
 
         //1 --------Epsilon-Removal--------
-
         Rules.printGrammar(hashMapGrammar);
+        System.out.println("\n---------------------------");
+        Rules.redefineStartPoint(hashMapGrammar);
+        Rules.printGrammar(hashMapGrammar);
+        System.out.println("\n---------------------------");
         Rules.removeEpsilon(hashMapGrammar);
         Rules.printGrammar(hashMapGrammar);
+        System.out.println("\n---------------------------");
+        Rules.removeUnitProductions(hashMapGrammar);
+        Rules.printGrammar(hashMapGrammar);
+        System.out.println("\n---------------------------");
+
 
     }
 }

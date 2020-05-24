@@ -1,7 +1,5 @@
 package com.company;
 
-import javafx.css.Rule;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -10,7 +8,34 @@ public class Rules {
     static boolean hasEpsilon = false;
     static String epsilonProduction = "";
 
-    //1. removing epsilon
+    //------------------------------------------------------------------
+    // 1. Redefine Start point
+    //------------------------------------------------------------------
+
+    public static void redefineStartPoint(Map<Grammar, List<Grammar>> CFG){
+        boolean toAdd = false;
+        List<Grammar> g = new ArrayList<>();
+        for (List<Grammar> values : CFG.values()) {
+            for (Grammar value : values) {
+                if (value.getNodeName().charAt(value.getNodeName().length() - 1) == 'S') {
+                    toAdd = true;
+                    break;
+                }
+            }
+        }
+        if(toAdd){
+            Grammar s = new Grammar();
+            Grammar t = new Grammar();
+            s.setNodeName("S*");
+            t.setNodeName("S");
+            g.add(t);
+            CFG.put(s, g);
+        }
+    }
+    //------------------------------------------------------------------
+    // 2. Removing Epsilon
+    //------------------------------------------------------------------
+
     public static void removeEpsilon(Map<Grammar, List<Grammar>> CFG) {
         epsilonProduction = "";
         hasEpsilon = false;
@@ -33,6 +58,37 @@ public class Rules {
         } else {
             System.out.println("No Epsilons - Done!");
         }
+    }
+
+    //------------------------------------------------------------------
+    // 3. Removing unit production
+    //------------------------------------------------------------------
+
+    public static void removeUnitProductions(Map<Grammar, List<Grammar>> CFG){
+        String keyToRemove = "";
+
+        for (Grammar key: CFG.keySet()) {
+            for (List<Grammar> values : CFG.values()) {
+                for (int i = 0; i < values.size(); i++) {
+                    if (values.get(i).isSingularUppercase() && key.getNodeName().equals(values.get(i).getNodeName())) {
+                        keyToRemove = values.get(i).getNodeName();
+                        values.remove(values.get(i));
+                    }
+                }
+            }
+        }
+
+        for (Grammar key: CFG.keySet()) {
+            for (List<Grammar> values : CFG.values()) {
+                for (int i = 0; i < values.size(); i++) {
+                    if (key.getNodeName().equals(keyToRemove)){
+
+                        CFG.remove(key);
+                    }
+                }
+            }
+        }
+
     }
 
     //------------------------------------------------------------------
